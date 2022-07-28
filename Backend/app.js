@@ -16,10 +16,13 @@ const PORT = 3000;
 //CORS middleware
 app.use(cors());
 
-// set static folder
-app.use(express.static(path.join(__dirname,'public')));
+// // set static folder
+// app.use(express.static(path.join(__dirname,'public')));
 
 // Bodyparser middleware
+app.use(bodyParser.urlencoded({
+    extended: false
+  }));
 app.use(bodyParser.json());
 
 // app.use('/books',booksRoute);
