@@ -1,45 +1,30 @@
 const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const passport = require('passport');
 const mongoose = require('mongoose');
 require('dotenv/config');
+const  cors = require('cors');
 
-const booksRoute = require('./routes/books.js');
-const usersRoute = require('./routes/users.js');
 
-const app= express();
+const app = express();
 
-const PORT = 3000;
+// Middleware
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json());
 
-//CORS middleware
 app.use(cors());
 
-// // set static folder
-// app.use(express.static(path.join(__dirname,'public')));
+// Import Routes
+const booksRoute = require('./routes/books');
+const usersRoute = require('./routes/users');
 
-// Bodyparser middleware
-app.use(bodyParser.urlencoded({
-    extended: false
-  }));
-app.use(bodyParser.json());
+// app.use('/books',express.raw({ type: '*/*' }),booksRoute);
+// app.use('/users',express.raw({ type: '*/*' }),usersRoute);
 
-// app.use('/books',booksRoute);
+app.use('/books',booksRoute);
 app.use('/users',usersRoute);
 
 // Connect to DB
-mongoose.connect(process.env.dbUrl, { useNewUrlParser: true });
-
-mongoose.connection.on('connected', () => {
+mongoose.connect(process.env.dbUrl, { useNewUrlParser: true }, () => { 
     console.log("Connected to DB")
 });
 
-mongoose.connection.on('error', () => {
-    console.log("DB error" + error)
-});
-
-app.listen(PORT,() => {
-    console.log('Server started on port' +PORT);
-
-})
+app.listen(3000)

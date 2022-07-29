@@ -25,7 +25,7 @@ const routes: Routes = [
     component: BooklistComponent
   },
   {
-    path: 'addusers',
+    path: 'users/signup',
     component: SignupComponent
   },
   {

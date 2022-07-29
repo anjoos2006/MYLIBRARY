@@ -10,7 +10,7 @@ import { UserService } from '../user.service';
 })
 export class SignupComponent implements OnInit {
   title: String = "Please Register";
-  ausers = new UserModel(null!,null!,null!,null!);
+  ausers = new UserModel('','','','');
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
@@ -19,8 +19,8 @@ export class SignupComponent implements OnInit {
   Adduser(){
     this.userService.newUsers(this.ausers);
     console.log("Called");
-    console.log("ausers");
-    console.log(this.ausers);
+    console.log("this.ausers.name");
+    console.log(this.ausers.name);
     alert("Success");
     this.router.navigate(['/userlogin']);
 
